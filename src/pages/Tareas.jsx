@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
 import Title from '../components/Title'
 
 function Tareas() {
@@ -12,8 +13,10 @@ function Tareas() {
     const [tituloEditado, setTituloEditado] = useState('')
     const [descripcionEditado, setDescripcionEditado] = useState('')
 
+    const { token } = useContext(AuthContext)
+
     async function mostrarTareas() {
-        const token = localStorage.getItem('token') // Obtiene el token del localStorage
+        //const token = localStorage.getItem('token') // Obtiene el token del localStorage
         const response = await fetch('http://localhost:3000/tareas', {
             headers: {
                 'Authorization': `Bearer ${token}`  // Agrega el token al encabezado de autorización
@@ -24,7 +27,7 @@ function Tareas() {
     }
 
     async function crearTareas() {
-        const token = localStorage.getItem('token')
+        //const token = localStorage.getItem('token')
         const response = await fetch('http://localhost:3000/tareas', {
             method: 'POST',
             headers: {
@@ -38,7 +41,7 @@ function Tareas() {
     }
 
     async function eliminarTarea(id) {
-        const token = localStorage.getItem('token')
+        //const token = localStorage.getItem('token')
         const response = await fetch('http://localhost:3000/tareas/' + id, {
             method: 'DELETE',
             headers: {
@@ -50,7 +53,7 @@ function Tareas() {
     }
 
     async function editarTarea(id) {
-        const token = localStorage.getItem('token')
+        //const token = localStorage.getItem('token')
         const response = await fetch('http://localhost:3000/tareas/' + id, {
             method: 'PUT',
             headers: {

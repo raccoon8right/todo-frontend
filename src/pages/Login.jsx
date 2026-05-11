@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext.jsx'
 import Title from '../components/Title'
 import Form from '../components/Form'
 import Input from '../components/Input'
@@ -12,6 +14,8 @@ function Login() {
     const navigate = useNavigate()
 
     const [error, setError] = useState('')
+
+    const { setToken } = useContext(AuthContext)
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -27,6 +31,7 @@ function Login() {
 
         if (response.ok) {
             localStorage.setItem('token', data.token) // Guarda el token
+            setToken(data.token)
             console.log('Login exitoso')
             navigate('/tareas') // Redirige a la página de tareas
         } else {
