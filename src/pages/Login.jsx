@@ -11,8 +11,11 @@ function Login() {
 
     const navigate = useNavigate()
 
+    const [error, setError] = useState('')
+
     async function handleSubmit(e) {
         e.preventDefault()
+        setError('') // Limpiar errores anteriores
         const response = await fetch('http://localhost:3000/auth/login', {
             method: 'POST',
             headers: {
@@ -27,7 +30,7 @@ function Login() {
             console.log('Login exitoso')
             navigate('/tareas') // Redirige a la página de tareas
         } else {
-            console.log(data.mensaje)
+            setError(data.mensaje)
         }
     }
 
@@ -39,6 +42,7 @@ function Login() {
                 <Input type='password' placeholder='Contraseña...' value={password} onChange={(e) => setPassword(e.target.value)} />
                 <button type='submit'>Iniciar sesión</button>
             </Form>
+            {error && <p>{error}</p>}
         </>
     )
 }

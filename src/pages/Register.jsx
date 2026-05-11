@@ -12,8 +12,11 @@ function Register() {
 
     const navigate = useNavigate()
 
+    const [error, setError] = useState('')
+
     async function handleSubmit(e) {
         e.preventDefault()
+        setError('') // Limpiar errores anteriores
         const response = await fetch('http://localhost:3000/auth/register', {
             method: 'POST',
             headers: {
@@ -22,12 +25,12 @@ function Register() {
             body: JSON.stringify({ nombre: name, email, password })
         })
         const data = await response.json()
-        
+
         if (response.ok) {
             console.log('Registro exitoso')
             navigate('/')
         } else {
-            console.log(data.mensaje)
+            setError(data.mensaje)
         }
     }
 
@@ -36,10 +39,11 @@ function Register() {
             <Title title='Registrar usuario' />
             <Form onSubmit={handleSubmit}>
                 <Input type='text' placeholder='Nombre...' value={name} onChange={(e) => setName(e.target.value)} />
-                <Input type='email' placeholder='Email...' value={email} onChange={(e)=> setEmail(e.target.value)} />
+                <Input type='email' placeholder='Email...' value={email} onChange={(e) => setEmail(e.target.value)} />
                 <Input type='password' placeholder='Contraseña...' value={password} onChange={(e) => setPassword(e.target.value)} />
                 <button type='submit'>Registrarse</button>
             </Form>
+            {error && <p>{error}</p>}
         </>
     )
 }
