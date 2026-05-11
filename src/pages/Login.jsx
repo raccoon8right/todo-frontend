@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Title from '../components/Title'
+import Input from '../components/Input'
 
 function Login() {
 
@@ -7,12 +9,7 @@ function Login() {
     const [password, setPassword] = useState('')
 
     const navigate = useNavigate()
-    /* funccion normal
-    function handleSubmit(e) {
-        e.preventDefault()
-        console.log(email, password)
-    }
-    */
+
     async function handleSubmit(e) {
         e.preventDefault()
         const response = await fetch('http://localhost:3000/auth/login', {
@@ -23,7 +20,7 @@ function Login() {
             body: JSON.stringify({ email, password })
         })
         const data = await response.json()
-        //console.log(data)
+
         if (response.ok) {
             localStorage.setItem('token', data.token) // Guarda el token
             console.log('Login exitoso')
@@ -35,12 +32,12 @@ function Login() {
 
     return (
         <>
-            <h1>Login Page</h1>
-            <form onSubmit={handleSubmit}>
-                <input type='email' placeholder='Email...' value={email} onChange={(e) => setEmail(e.target.value)} />
-                <input type='password' placeholder='Contraseña...' value={password} onChange={(e) => setPassword(e.target.value)} />
+            <Title title='Iniciar sesión' />
+            <Form onSubmit={handleSubmit}>
+                <Input type='email' placeholder='Email...' value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Input type='password' placeholder='Contraseña...' value={password} onChange={(e) => setPassword(e.target.value)} />
                 <button type='submit'>Iniciar sesión</button>
-            </form>
+            </Form>
         </>
     )
 }

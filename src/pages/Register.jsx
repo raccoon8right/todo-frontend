@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Title from '../components/Title'
+import Input from '../components/Input'
 
 function Register() {
 
@@ -30,13 +32,13 @@ function Register() {
 
     return (
         <>
-            <h1>Register Page</h1>
-            <form onSubmit={handleSubmit}>
-                <input type='text' placeholder='Nombre...' value={name} onChange={(e) => setName(e.target.value)} />
-                <input type='email' placeholder='Email...' value={email} onChange={(e)=> setEmail(e.target.value)} />
-                <input type='password' placeholder='Contraseña...' value={password} onChange={(e) => setPassword(e.target.value)} />
+            <Title title='Registrar usuario' />
+            <Form onSubmit={handleSubmit}>
+                <Input type='text' placeholder='Nombre...' value={name} onChange={(e) => setName(e.target.value)} />
+                <Input type='email' placeholder='Email...' value={email} onChange={(e)=> setEmail(e.target.value)} />
+                <Input type='password' placeholder='Contraseña...' value={password} onChange={(e) => setPassword(e.target.value)} />
                 <button type='submit'>Registrarse</button>
-            </form>
+            </Form>
         </>
     )
 }

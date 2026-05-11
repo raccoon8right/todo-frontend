@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import Title from '../components/Title'
 
 function Tareas() {
 
@@ -74,7 +75,7 @@ function Tareas() {
 
     return (
         <>
-            <h1>Tareas Page</h1>
+            <Title title='Tareas' />
             {tareas.map((tarea) => (
                 <div key={tarea.id}>
                     {tareaEditado === tarea.id ? (
