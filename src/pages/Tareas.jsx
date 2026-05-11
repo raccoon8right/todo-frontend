@@ -77,35 +77,43 @@ function Tareas() {
     }, [])
 
     return (
-        <>
-            <Title title='Tareas' />
-            {tareas.map((tarea) => (
-                <div key={tarea.id}>
-                    {tareaEditado === tarea.id ? (
-                        <>
-                            <input value={tituloEditado} onChange={(e) => setTituloEditado(e.target.value)} />
-                            <input value={descripcionEditado} onChange={(e) => setDescripcionEditado(e.target.value)} />
-                            <button onClick={() => editarTarea(tarea.id)}>Guardar</button>
-                            <button onClick={() => setTareaEditado(null)}>Cancelar</button>
-                        </>
-                    ) : (
-                        <>
-                            <p>{tarea.titulo}</p>
-                            <p>{tarea.descripcion}</p>
-                            <button onClick={() => activarEdicion(tarea)}>Editar</button>
-                            <button onClick={() => eliminarTarea(tarea.id)}>Eliminar</button>
-                        </>
-                    )}
+        <div className='min-h-screen bg-gray-900 p-8'>
+            <div className='max-w-2xl mx-auto'>
+                <Title title='Mis Tareas' />
+                {tareas.map((tarea) => (
+                    <div key={tarea.id} className='bg-gray-800 p-4 rounded-lg mb-3 flex justify-between items-center'>
+                        {tareaEditado === tarea.id ? (
+                            <>
+                                <input value={tituloEditado} onChange={(e) => setTituloEditado(e.target.value)} className='bg-gray-700 text-white rounded px-3 py-1 mr-2' />
+                                <input value={descripcionEditado} onChange={(e) => setDescripcionEditado(e.target.value)} className='bg-gray-700 text-white rounded px-3 py-1 mr-2' />
+                                <button onClick={() => editarTarea(tarea.id)} className='bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded mr-2'>Guardar</button>
+                                <button onClick={() => setTareaEditado(null)} className='bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded'>Cancelar</button>
+                            </>
+                        ) : (
+                            <>
+                                <div>
+                                    <p className='text-white font-semibold'>{tarea.titulo}</p>
+                                    <p className='text-gray-400 text-sm'>{tarea.descripcion}</p>
+                                </div>
+                                <div className='flex gap-2'>
+                                    <button onClick={() => activarEdicion(tarea)} className='bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded'>Editar</button>
+                                    <button onClick={() => eliminarTarea(tarea.id)} className='bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded'>Eliminar</button>
+                                </div>
+                            </>
+                        )}
 
+                    </div>
+                ))}
+                <div className='bg-gray-800 p-4 rounded-lg mt-6'>
+                    <h2 className='text-white font-semibold mb-4'>Nueva tarea</h2>
+                    <form onSubmit={(e) => { e.preventDefault(); crearTareas() }}>
+                        <input type='text' placeholder='Titulo de la tarea' value={titulo} onChange={(e) => setTitulo(e.target.value)} className='w-full bg-gray-700 text-white placeholder-gray-400 border border-gray-600 rounded-lg px-4 py-2 mb-3 focus:outline-none focus:border-purple-500' />
+                        <input type='text' placeholder='Descripción de la tarea' value={descripcion} onChange={(e) => setDescripcion(e.target.value)} className='w-full bg-gray-700 text-white placeholder-gray-400 border border-gray-600 rounded-lg px-4 py-2 mb-3 focus:outline-none focus:border-purple-500' />
+                        <button type='submit' className='w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-lg transition-colors'>Crear tarea</button>
+                    </form>
                 </div>
-            ))}
-            <h1>Crea tu tarea</h1>
-            <form onSubmit={(e) => { e.preventDefault(); crearTareas() }}>
-                <input type='text' placeholder='Titulo de la tarea' value={titulo} onChange={(e) => setTitulo(e.target.value)} />
-                <input type='text' placeholder='Descripción de la tarea' value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
-                <button type='submit'>CrearTarea</button>
-            </form>
-        </>
+            </div>
+        </div>
     )
 }
 

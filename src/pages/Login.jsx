@@ -1,6 +1,5 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useContext } from 'react'
+import { useState, useContext } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext.jsx'
 import Title from '../components/Title'
 import Form from '../components/Form'
@@ -40,15 +39,21 @@ function Login() {
     }
 
     return (
-        <>
-            <Title title='Iniciar sesión' />
-            <Form onSubmit={handleSubmit}>
-                <Input type='email' placeholder='Email...' value={email} onChange={(e) => setEmail(e.target.value)} />
-                <Input type='password' placeholder='Contraseña...' value={password} onChange={(e) => setPassword(e.target.value)} />
-                <button type='submit'>Iniciar sesión</button>
-            </Form>
-            {error && <p>{error}</p>}
-        </>
+        <div className='min-h-screen bg-gray-900 flex items-center justify-center'>
+            <div className='bg-gray-800 p-8 rounded-xl w-full max-w-md'>
+                <Title title='Iniciar sesión' />
+                <Form onSubmit={handleSubmit}>
+                    <Input type='email' placeholder='Email...' value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <Input type='password' placeholder='Contraseña...' value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <button type='submit' className='w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-lg transition-colors'>Iniciar sesión</button>
+                </Form>
+                <p className='text-gray-400 text-sm text-center mt-4'>
+                    ¿No tienes cuenta?
+                    <Link to='/register' className='text-purple-400 hover:text-purple-300'> Regístrate</Link>
+                </p>
+                {error && <p className='text-red-400 text-sm mt-2 text-center'>{error}</p>}
+            </div>
+        </div>
     )
 }
 
