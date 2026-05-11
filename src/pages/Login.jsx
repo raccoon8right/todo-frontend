@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Title from '../components/Title'
+import Form from '../components/Form'
 import Input from '../components/Input'
 
 function Login() {
