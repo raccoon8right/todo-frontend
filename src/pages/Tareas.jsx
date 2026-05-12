@@ -70,6 +70,18 @@ function Tareas() {
         mostrarTareas()
     }
 
+    async function toggleCompletada(tarea) {
+        const response = await fetch('http://localhost:3000/tareas/' + tarea.id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({titulo: tarea.titulo, descripcion: tarea.descripcion, completada: !tarea.completada})
+        })
+        mostrarTareas()
+    }
+
     function activarEdicion(tarea) {
         setTareaEditado(tarea.id)
         setTituloEditado(tarea.titulo)
@@ -102,9 +114,12 @@ function Tareas() {
                             </>
                         ) : (
                             <>
-                                <div>
-                                    <p className='text-white font-semibold'>{tarea.titulo}</p>
-                                    <p className='text-gray-400 text-sm'>{tarea.descripcion}</p>
+                                <div className='flex items-center gap-3'>
+                                    <input type='checkbox' checked={tarea.completada} onChange={() => toggleCompletada(tarea)} className='w-4 h-4 accent-purple-500' />
+                                    <div>
+                                        <p className={`font-semibold ${tarea.completada ? 'line-through text-gray-500' : 'text-white'}`}>{tarea.titulo}</p>
+                                        <p className='text-gray-400 text-sm'>{tarea.descripcion}</p>
+                                    </div>
                                 </div>
                                 <div className='flex gap-2'>
                                     <button onClick={() => activarEdicion(tarea)} className='bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded'>Editar</button>
