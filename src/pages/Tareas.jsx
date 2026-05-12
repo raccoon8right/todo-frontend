@@ -41,6 +41,8 @@ function Tareas() {
         })
         const data = await response.json()
         mostrarTareas() // Refresca la lista de tareas después de crear una nueva
+        setTitulo('')
+        setDescripcion('')
     }
 
     async function eliminarTarea(id) {
