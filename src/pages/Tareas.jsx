@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import Title from '../components/Title'
 
@@ -13,7 +14,9 @@ function Tareas() {
     const [tituloEditado, setTituloEditado] = useState('')
     const [descripcionEditado, setDescripcionEditado] = useState('')
 
-    const { token } = useContext(AuthContext)
+    const { token, setToken } = useContext(AuthContext)
+
+    const navigate = useNavigate()
 
     async function mostrarTareas() {
         //const token = localStorage.getItem('token') // Obtiene el token del localStorage
@@ -53,7 +56,6 @@ function Tareas() {
     }
 
     async function editarTarea(id) {
-        //const token = localStorage.getItem('token')
         const response = await fetch('http://localhost:3000/tareas/' + id, {
             method: 'PUT',
             headers: {
@@ -72,6 +74,12 @@ function Tareas() {
         setDescripcionEditado(tarea.descripcion)
     }
 
+    function logout() {
+        localStorage.removeItem('token')
+        setToken(null)
+        navigate('/')
+    }
+
     useEffect(() => {
         mostrarTareas()
     }, [])
@@ -80,6 +88,7 @@ function Tareas() {
         <div className='min-h-screen bg-gray-900 p-8'>
             <div className='max-w-2xl mx-auto'>
                 <Title title='Mis Tareas' />
+                <button onClick={logout} className='bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg mb-6 transition-colors'>Cerrar sesión</button>
                 {tareas.map((tarea) => (
                     <div key={tarea.id} className='bg-gray-800 p-4 rounded-lg mb-3 flex justify-between items-center'>
                         {tareaEditado === tarea.id ? (
