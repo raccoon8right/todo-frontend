@@ -19,18 +19,16 @@ function Tareas() {
     const navigate = useNavigate()
 
     async function mostrarTareas() {
-        //const token = localStorage.getItem('token') // Obtiene el token del localStorage
         const response = await fetch('http://localhost:3000/tareas', {
             headers: {
-                'Authorization': `Bearer ${token}`  // Agrega el token al encabezado de autorización
+                'Authorization': `Bearer ${token}`
             }
         })
         const data = await response.json()
-        setTareas(data) // Actualiza el estado con las tareas obtenidas
+        setTareas(data)
     }
 
     async function crearTareas() {
-        //const token = localStorage.getItem('token')
         const response = await fetch('http://localhost:3000/tareas', {
             method: 'POST',
             headers: {
@@ -40,13 +38,12 @@ function Tareas() {
             body: JSON.stringify({ titulo, descripcion })
         })
         const data = await response.json()
-        mostrarTareas() // Refresca la lista de tareas después de crear una nueva
+        mostrarTareas()
         setTitulo('')
         setDescripcion('')
     }
 
     async function eliminarTarea(id) {
-        //const token = localStorage.getItem('token')
         const response = await fetch('http://localhost:3000/tareas/' + id, {
             method: 'DELETE',
             headers: {
@@ -54,7 +51,7 @@ function Tareas() {
                 'Authorization': `Bearer ${token}`
             }
         })
-        mostrarTareas() // Refresca la lista de tareas después de eliminar una tarea
+        mostrarTareas()
     }
 
     async function editarTarea(id) {
