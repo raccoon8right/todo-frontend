@@ -19,7 +19,7 @@ function Tareas() {
     const navigate = useNavigate()
 
     async function mostrarTareas() {
-        const response = await fetch('http://localhost:3000/tareas', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/tareas`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -29,7 +29,7 @@ function Tareas() {
     }
 
     async function crearTareas() {
-        const response = await fetch('http://localhost:3000/tareas', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/tareas`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ function Tareas() {
     }
 
     async function eliminarTarea(id) {
-        const response = await fetch('http://localhost:3000/tareas/' + id, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/tareas/` + id, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ function Tareas() {
     }
 
     async function editarTarea(id) {
-        const response = await fetch('http://localhost:3000/tareas/' + id, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/tareas/` + id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -68,13 +68,13 @@ function Tareas() {
     }
 
     async function toggleCompletada(tarea) {
-        const response = await fetch('http://localhost:3000/tareas/' + tarea.id, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/tareas/` + tarea.id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({titulo: tarea.titulo, descripcion: tarea.descripcion, completada: !tarea.completada})
+            body: JSON.stringify({ titulo: tarea.titulo, descripcion: tarea.descripcion, completada: !tarea.completada })
         })
         mostrarTareas()
     }

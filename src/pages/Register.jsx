@@ -16,8 +16,8 @@ function Register() {
 
     async function handleSubmit(e) {
         e.preventDefault()
-        setError('') // Limpiar errores anteriores
-        const response = await fetch('http://localhost:3000/auth/register', {
+        setError('')
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

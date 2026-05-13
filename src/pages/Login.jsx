@@ -18,8 +18,8 @@ function Login() {
 
     async function handleSubmit(e) {
         e.preventDefault()
-        setError('') // Limpiar errores anteriores
-        const response = await fetch('http://localhost:3000/auth/login', {
+        setError('')
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -29,10 +29,10 @@ function Login() {
         const data = await response.json()
 
         if (response.ok) {
-            localStorage.setItem('token', data.token) // Guarda el token
+            localStorage.setItem('token', data.token)
             setToken(data.token)
             console.log('Login exitoso')
-            navigate('/tareas') // Redirige a la página de tareas
+            navigate('/tareas')
         } else {
             setError(data.mensaje)
         }
